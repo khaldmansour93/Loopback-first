@@ -1,0 +1,76 @@
+{
+  "name": "kortobaa",
+  "version": "0.0.1",
+  "description": "Kortobaa 4",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t kortobaa .",
+    "docker:run": "docker run -p 3000:3000 -d kortobaa",
+    "premigrate": "npm run build",
+    "migrate": "node ./dist/migrate",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run rebuild",
+    "start": "tsc-watch --target es2017 --outDir ./dist --onSuccess \"node .\"",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "khaldmansour <khaldmansour93@gmail.com>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/authentication": "^7.3.0",
+    "@loopback/authentication-jwt": "^0.9.0",
+    "@loopback/authentication-passport": "^3.2.0",
+    "@loopback/boot": "^3.4.0",
+    "@loopback/core": "^2.16.0",
+    "@loopback/repository": "^3.6.0",
+    "@loopback/rest": "^9.3.0",
+    "@loopback/rest-explorer": "^3.3.0",
+    "@loopback/service-proxy": "^3.2.0",
+    "@types/passport-http": "^0.3.8",
+    "loopback-connector-mysql": "^5.4.4",
+    "passport-http": "^0.3.0",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^6.4.0",
+    "@loopback/eslint-config": "^10.2.0",
+    "@loopback/testlab": "^3.4.0",
+    "@types/node": "^10.17.59",
+    "eslint": "^7.25.0",
+    "source-map-support": "^0.5.19",
+    "tsc-watch": "^4.4.0",
+    "typescript": "~4.2.4"
+  }
+}
